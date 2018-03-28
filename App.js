@@ -4,6 +4,9 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 
+import s from './constants/styles';
+
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -20,9 +23,9 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
+        <View style={s.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+          {Platform.OS === 'android' && <View style={s.statusBarUnderlay} />}
           <RootNavigation />
         </View>
       );
@@ -55,14 +58,3 @@ export default class App extends React.Component {
     this.setState({ isLoadingComplete: true });
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  statusBarUnderlay: {
-    height: 24,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
-});

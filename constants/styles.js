@@ -4,7 +4,7 @@ import { Platform, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 30,
@@ -12,17 +12,27 @@ const styles = StyleSheet.create({
   bigText: {
     fontSize: 30,
   },
-  welcomeContainer: {
+  logoContainer: {
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
+  },
+  verticalSplitContainer: {
+    flexDirection: 'row',
+  },
+  leftSideContainer: {
+    flex:1,
+    backgroundColor: '#ddddff',
+  },
+  rightSideContainer: {
+    flex: 3,
   },
   button: {
     flex: 1,
     backgroundColor: '#00aaff',
     padding: 20,
   },
-  welcomeImage: {
+  logoImage: {
     width: 100,
     height: 80,
     resizeMode: 'contain',

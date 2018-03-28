@@ -39,7 +39,7 @@ export default class Altitude extends React.Component {
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          altitude: position.coords.altitude,
+          altitude: position.coords.altitude.toFixed(1),
           error: null,
         });
       },
@@ -51,7 +51,7 @@ export default class Altitude extends React.Component {
   render() {
     return (
       <View>
-        <Text style={s.bigText}>{ this.state.altitude } m { this.state.latitude }</Text>
+        <Text style={s.bigText}>{ this.state.altitude } m</Text>
       </View>
     )
   }
