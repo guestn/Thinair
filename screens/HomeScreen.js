@@ -12,6 +12,9 @@ import { WebBrowser, Geolocation } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import Altitude from '../components/Altitude';
+import ProgressBar from '../components/ProgressBar';
+import SettingsModal from '../components/SettingsModal';
+
 
 import s from '../constants/styles';
 
@@ -24,6 +27,7 @@ export default class HomeScreen extends React.Component {
     super();
     this.state = {
       refresh: false,
+      modalVisible: false,
     }
   }
 
@@ -33,10 +37,19 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+  viewModal = () => {
+    this.setState(prevState => {
+      return {
+        modalVisible: !prevState.modalVisible,
+      }
+    })
+  }
+
   render() {
     return (
       <View style={s.container}>
         <ScrollView style={s.container} contentContainerStyle={s.contentContainer}>
+          <SettingsModal visible={this.state.modalVisible}/>
           <View style={s.logoContainer}>
             <Image
               source={
@@ -47,22 +60,31 @@ export default class HomeScreen extends React.Component {
               style={s.logoImage}
             />
           </View>
+
           <View style={s.verticalSplitContainer}>
             <View style={s.leftSideContainer}>
-                <Text>alt</Text>
+              <ProgressBar high={2100} low={0} value={1000} />
             </View>
             <View style={s.rightSideContainer}>
 
               <View>
                 <Text>Your Current Altitude is</Text>
               </View>
+
               <Altitude refresh={this.state.refresh}/>
+
               <TouchableOpacity
                 style={s.button}
-                onPress={this.refresh}
-              >
+                onPress={this.refresh}>
                 <Text>Refresh</Text>
               </TouchableOpacity>
+
+              <TouchableOpacity
+                style={s.button}
+                onPress={this.viewModal}>
+                <Text>Settings</Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         </ScrollView>

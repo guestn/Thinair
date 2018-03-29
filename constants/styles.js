@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
   },
   verticalSplitContainer: {
     flexDirection: 'row',
+    marginLeft: 20,
+    marginRight: 20,
   },
   leftSideContainer: {
     flex:1,
@@ -26,11 +28,29 @@ const styles = StyleSheet.create({
   },
   rightSideContainer: {
     flex: 3,
+    justifyContent: 'space-between',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent:'space-between',
+    margin: 22, 
+    backgroundColor: 'rgba(155,155,155,0.9)'
   },
   button: {
-    flex: 1,
     backgroundColor: '#00aaff',
     padding: 20,
+    height: 50,
+  },
+  progressBarContainer: {
+    width:24,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  progressBar: {
+    width:16,
+    backgroundColor: 'red',
+   // alignSelf: 'flex-end'
   },
   logoImage: {
     width: 100,
