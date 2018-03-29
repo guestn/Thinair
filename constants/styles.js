@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
     padding: 20,
     height: 50,
   },
+  buttonSmall: {
+    backgroundColor: '#00aaff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
+  },
   progressBarContainer: {
     width:24,
     backgroundColor: 'black',

@@ -3,7 +3,6 @@ import {
   Image,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -14,9 +13,12 @@ import { MonoText } from '../components/StyledText';
 import Altitude from '../components/Altitude';
 import ProgressBar from '../components/ProgressBar';
 import SettingsModal from '../components/SettingsModal';
+import { BigButton } from '../components/Buttons';
 
 
 import s from '../constants/styles';
+
+// __DEV__ gives true in dev env //
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -28,12 +30,23 @@ export default class HomeScreen extends React.Component {
     this.state = {
       refresh: false,
       modalVisible: false,
+      high: 900,
+      low: 20,
     }
   }
 
   refresh = () => {
     this.setState({
       refresh: true,
+    })
+  }
+
+  setParams = ({high, low}) => {
+    console.log({high, low})
+    this.setState({
+      high,
+      low,
+      modalVisible: false,
     })
   }
 
@@ -49,41 +62,39 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={s.container}>
         <ScrollView style={s.container} contentContainerStyle={s.contentContainer}>
-          <SettingsModal visible={this.state.modalVisible}/>
+
+          <SettingsModal 
+            visible={this.state.modalVisible}
+            high={this.state.high}
+            low={this.state.low}
+            params={this.setParams}/>
+
           <View style={s.logoContainer}>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
+              source={require('../assets/images/robot-prod.png')}
               style={s.logoImage}
             />
           </View>
 
           <View style={s.verticalSplitContainer}>
             <View style={s.leftSideContainer}>
-              <ProgressBar high={2100} low={0} value={1000} />
+
+              <ProgressBar high={this.state.high} low={this.state.low} value={300} />
+
             </View>
             <View style={s.rightSideContainer}>
 
-              <View>
-                <Text>Your Current Altitude is</Text>
-              </View>
+              <Text>Your Current Altitude is</Text>
 
               <Altitude refresh={this.state.refresh}/>
 
-              <TouchableOpacity
-                style={s.button}
-                onPress={this.refresh}>
-                <Text>Refresh</Text>
-              </TouchableOpacity>
+              <BigButton
+                onPress={this.refresh}
+                text="Refresh"/>
 
-              <TouchableOpacity
-                style={s.button}
-                onPress={this.viewModal}>
-                <Text>Settings</Text>
-              </TouchableOpacity>
+              <BigButton
+                onPress={this.viewModal}
+                text="Settings"/>
 
             </View>
           </View>

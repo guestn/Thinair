@@ -3,7 +3,6 @@ import {
   Image,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -20,7 +19,7 @@ const getBarHeight = ({high, low, value}) => {
 }
 
 const ProgressBar = ({high, low, value}) => {
-  const { barHeight, percentage } = getBarHeight({high, low, value})
+  const { barHeight, percentage } = getBarHeight({high, low, value});
   return (
     <View style={{ flexDirection: 'row'}}>
       <View style={[s.progressBarContainer, { height:containerHeight }]}>
@@ -29,7 +28,7 @@ const ProgressBar = ({high, low, value}) => {
       <View style={{ justifyContent: 'space-between'}}>
         <Text style={{}}>{ high }</Text>
         <Text>{ low }</Text>
-        <Text style={{ position:'absolute', bottom: barHeight}}>{ percentage }%</Text>
+        <Text style={{ position:'absolute', bottom: barHeight -20}}>{ `${percentage}%` }</Text>
       </View>
     </View>
   )
