@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AsyncStorage,
   Image,
   Platform,
   ScrollView,
@@ -13,6 +14,8 @@ import { MonoText } from '../components/StyledText';
 import Altitude from '../components/Altitude';
 import ProgressBar from '../components/ProgressBar';
 import SettingsModal from '../components/SettingsModal';
+import AlertToast from '../components/Toast';
+
 import { BigButton } from '../components/Buttons';
 
 
@@ -30,9 +33,15 @@ export default class HomeScreen extends React.Component {
     this.state = {
       refresh: false,
       modalVisible: false,
+      toastVisible: false,
       high: 900,
       low: 20,
+      altitude: 250,
     }
+  }
+
+  componentDidMount() {
+    this.loadLocalSettings()
   }
 
   refresh = () => {
@@ -42,12 +51,12 @@ export default class HomeScreen extends React.Component {
   }
 
   setParams = ({high, low}) => {
-    console.log({high, low})
     this.setState({
       high,
       low,
       modalVisible: false,
     })
+    this.saveLocalSettings(this.state) 
   }
 
   viewModal = () => {
@@ -56,6 +65,43 @@ export default class HomeScreen extends React.Component {
         modalVisible: !prevState.modalVisible,
       }
     })
+  }
+
+  viewToast = (message) => {
+    setTimeout(() => {
+      this.setState({
+        toastVisible: true,
+        toastMessage: message,
+      })
+    }, 500);
+    setTimeout(() => {
+      this.setState({
+        toastVisible: false
+      })
+    }, 4500);
+  }
+
+  async saveLocalSettings(data) {
+    try {
+      await AsyncStorage.setItem('@ThinAirStore:data', JSON.stringify(this.state))
+      console.log('SAVED!')
+      this.viewToast('saved successfully');
+    } catch (error) {
+      this.viewToast('Error saving data')
+      console.log('Error saving data', error)
+    }
+  }
+
+  async loadLocalSettings() {
+    try {
+      let settings = await AsyncStorage.getItem('@ThinAirStore:data');
+      settings = JSON.parse(settings)
+      this.setState({ ...settings, modalVisible: false, toastVisible: false });
+      this.viewToast('loaded successfully');
+    } catch (error) {
+      this.viewToast('Error loading data')
+      console.log('Error loading data', error)
+    }
   }
 
   render() {
@@ -69,6 +115,10 @@ export default class HomeScreen extends React.Component {
             low={this.state.low}
             params={this.setParams}/>
 
+          <AlertToast
+            message={this.state.toastMessage}
+            visible={this.state.toastVisible} />
+
           <View style={s.logoContainer}>
             <Image
               source={require('../assets/images/robot-prod.png')}
@@ -79,7 +129,7 @@ export default class HomeScreen extends React.Component {
           <View style={s.verticalSplitContainer}>
             <View style={s.leftSideContainer}>
 
-              <ProgressBar high={this.state.high} low={this.state.low} value={300} />
+              <ProgressBar high={this.state.high} low={this.state.low} value={this.state.altitude} />
 
             </View>
             <View style={s.rightSideContainer}>

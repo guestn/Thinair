@@ -24,6 +24,11 @@ export default class Altitude extends React.Component {
 
   componentDidMount() {
     this.getAltitude()
+    if (!__DEV__) {
+      this.setState({
+        altitude
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {

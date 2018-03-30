@@ -20,8 +20,8 @@ export const BigButton = ({ text, onPress }) => {
   return (
     <TouchableOpacity
       style={s.button}
-      onPress={this.refresh}>
-      <Text>Refresh</Text>
+      onPress={onPress}>
+      <Text>{ text }</Text>
     </TouchableOpacity>
 
   )
