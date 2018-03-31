@@ -2,6 +2,7 @@ import React from 'react';
 import {
   AsyncStorage,
   Image,
+  ImageBackground,
   Platform,
   ScrollView,
   Text,
@@ -10,11 +11,12 @@ import {
 } from 'react-native';
 import { WebBrowser, Geolocation } from 'expo';
 
-import { MonoText } from '../components/StyledText';
 import Altitude from '../components/Altitude';
 import ProgressBar from '../components/ProgressBar';
 import SettingsModal from '../components/SettingsModal';
 import AlertToast from '../components/Toast';
+import PTRView from 'react-native-pull-to-refresh';
+
 
 import { BigButton } from '../components/Buttons';
 
@@ -45,9 +47,13 @@ export default class HomeScreen extends React.Component {
   }
 
   refresh = () => {
+
     this.setState({
       refresh: true,
     })
+    return new Promise((resolve) => {
+      setTimeout(()=>{resolve()}, 2000)
+    });
   }
 
   setParams = ({high, low}) => {
@@ -106,8 +112,11 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={s.container}>
-        <ScrollView style={s.container} contentContainerStyle={s.contentContainer}>
+      <ImageBackground
+        source={require('../assets/images/background.jpg')}
+        style={s.bgImageContainer}>
+        <PTRView onRefresh={this.refresh}>
+        <View style={s.container} contentContainerStyle={s.contentContainer}>
 
           <SettingsModal 
             visible={this.state.modalVisible}
@@ -121,7 +130,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={s.logoContainer}>
             <Image
-              source={require('../assets/images/robot-prod.png')}
+              source={require('../assets/images/logo256.png')}
               style={s.logoImage}
             />
           </View>
@@ -129,12 +138,13 @@ export default class HomeScreen extends React.Component {
           <View style={s.verticalSplitContainer}>
             <View style={s.leftSideContainer}>
 
-              <ProgressBar high={this.state.high} low={this.state.low} value={this.state.altitude} />
+              <ProgressBar 
+                high={this.state.high} 
+                low={this.state.low} 
+                value={this.state.altitude} />
 
             </View>
             <View style={s.rightSideContainer}>
-
-              <Text>Your Current Altitude is</Text>
 
               <Altitude refresh={this.state.refresh}/>
 
@@ -148,8 +158,9 @@ export default class HomeScreen extends React.Component {
 
             </View>
           </View>
-        </ScrollView>
-      </View>
+        </View>
+        </PTRView>
+      </ImageBackground>
     );
   }
 }

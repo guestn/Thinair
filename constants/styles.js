@@ -1,16 +1,35 @@
 import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
+const colors = {
+  orange: '#FF7900'
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#fff',
+  },
+  bgImageContainer: {
+    backgroundColor: '#ccc',
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
   contentContainer: {
     paddingTop: 30,
   },
+  smallText: {
+
+  },
+  mediumText: {
+    fontFamily: 'fugaz-one',
+    fontSize: 20,
+  },
   bigText: {
-    fontSize: 30,
+    fontFamily: 'fugaz-one',
+    fontSize: 60,
   },
   logoContainer: {
     alignItems: 'center',
@@ -24,7 +43,7 @@ const styles = StyleSheet.create({
   },
   leftSideContainer: {
     flex:1,
-    backgroundColor: '#ddddff',
+    //backgroundColor: '#ddddff',
   },
   rightSideContainer: {
     flex: 3,
@@ -37,26 +56,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(155,155,155,0.9)'
   },
   button: {
-    backgroundColor: '#00aaff',
+    backgroundColor: colors.orange,
     padding: 20,
     height: 50,
   },
   buttonSmall: {
-    backgroundColor: '#00aaff',
+    backgroundColor: colors.orange,
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
     width: 50,
   },
   progressBarContainer: {
+    borderRadius: 12,
     width:24,
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   progressBar: {
-    width:16,
-    backgroundColor: 'red',
+    width:24,
+    backgroundColor: colors.orange,
+    borderRadius: 12,
    // alignSelf: 'flex-end'
   },
   logoImage: {
@@ -66,33 +87,15 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
+  softShadow: {
+    shadowColor: '#000',
+    shadowRadius: 15,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 0,
+      height: -20,
+    }
+
   }
 });
 

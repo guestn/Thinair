@@ -10,6 +10,7 @@ import {
   //navigator,
 } from 'react-native';
 import { Geolocation } from 'expo';
+import { SText } from '../components/StyledText';
 import s from '../constants/styles';
 
 export default class Altitude extends React.Component {
@@ -18,17 +19,12 @@ export default class Altitude extends React.Component {
     this.state = {
       latitude: 0,
       longitude: 0,
-      altitude: null,
+      altitude: 0,
     }
   }
 
   componentDidMount() {
-    this.getAltitude()
-    if (!__DEV__) {
-      this.setState({
-        altitude
-      })
-    }
+    this.getAltitude();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,8 +51,9 @@ export default class Altitude extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text style={s.bigText}>{ this.state.altitude } m</Text>
+      <View style={{flexDirection:'row'}}>
+        <SText style={s.bigText}>{ this.state.altitude }</SText>
+        <SText style={s.smallText}>m</SText>
       </View>
     )
   }

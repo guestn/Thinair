@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SText } from '../components/StyledText';
 
 import s from '../constants/styles';
 
@@ -22,13 +23,15 @@ const ProgressBar = ({high, low, value}) => {
   const { barHeight, percentage } = getBarHeight({high, low, value});
   return (
     <View style={{ flexDirection: 'row'}}>
-      <View style={[s.progressBarContainer, { height:containerHeight }]}>
+      <View style={[s.progressBarContainer, s.softShadow, { height:containerHeight }]}>
         <View style={[s.progressBar, { height:barHeight }]}></View>
       </View>
-      <View style={{ justifyContent: 'space-between'}}>
-        <Text style={{}}>{ high }</Text>
-        <Text>{ low }</Text>
-        <Text style={{ position:'absolute', bottom: barHeight -20}}>{ `${percentage}%` }</Text>
+      <View style={{ justifyContent: 'space-between', paddingLeft: 10}}>
+        <SText style={s.mediumText}>{ high }</SText>
+        <SText style={s.mediumText}>{ low }</SText>
+        <SText style={{ position:'absolute', bottom: barHeight -20, left: 10}}>
+          { `${percentage}%` }
+        </SText>
       </View>
     </View>
   )
